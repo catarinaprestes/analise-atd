@@ -316,7 +316,10 @@
             updateStepContent('step-1');
 
             // --- LLM Logic Setup ---
-            const apiKey = "AIzaSyA2wWhI2b5f8N4o6AZ2Vk3Zx2nvvVZqyxg"; // <--- INSIRA SUA CHAVE DE API AQUI!
+            // INSTRUÇÃO CRÍTICA: Se você estiver executando este arquivo fora do ambiente Gemini (ex: GitHub Pages, Netlify),
+            // você DEVE inserir sua chave de API do Gemini entre as aspas abaixo para que as funções de IA funcionem.
+            // Para que funcione na prévia (Canvas), MANTENHA AS ASPAS VAZIAS.
+            const apiKey = "AIzaSyA2wWhI2b5f8N4o6AZ2Vk3Zx2nvvVZqyxg"; // <--- INSIRA SUA CHAVE DE API AQUI PARA DEPLOY EXTERNO!
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
             async function exponentialBackoffFetch(url, options, maxRetries = 5, delay = 1000) {
@@ -328,6 +331,7 @@
                         }
                         await new Promise(resolve => setTimeout(resolve, delay * (2 ** i) + Math.random() * 1000));
                     } catch (error) {
+                        // Se houver um erro de rede ou falha de fetch, ele será lançado no final
                         if (i === maxRetries - 1) throw error;
                         await new Promise(resolve => setTimeout(resolve, delay * (2 ** i) + Math.random() * 1000));
                     }
@@ -342,11 +346,9 @@
             const loadingIndicator = document.getElementById('loadingIndicator');
 
             async function generateATDAnalysis(discourseText) {
-                if (apiKey === "") {
-                     analysisOutput.innerHTML = `<p class="text-red-600 font-semibold">ERRO: Chave de API não configurada. Insira sua chave no código JavaScript para que o Analisador funcione.</p>`;
-                     return;
-                }
                 
+                // Removida a verificação if (apiKey === "") para resolver falha de injeção no Canvas.
+
                 if (!discourseText.trim()) {
                     analysisOutput.innerHTML = `<p class="text-red-600 font-semibold">Por favor, insira um fragmento de texto para análise.</p>`;
                     return;
@@ -375,8 +377,12 @@
                         body: JSON.stringify(payload)
                     });
 
+                    if (!response) {
+                        throw new Error(`A comunicação falhou após múltiplas tentativas. (Resposta Indefinida)`);
+                    }
+
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error(`HTTP error! status: ${response.status}. Por favor, verifique se a sua chave de API está correta e ativa.`);
                     }
 
                     const result = await response.json();
@@ -412,11 +418,9 @@
             const researchPlaceholder = document.getElementById('researchPlaceholder');
             
             async function generateResearchSketch(theme, button) {
-                if (apiKey === "") {
-                    researchOutput.innerHTML = `<p class="text-red-600 font-semibold text-center">ERRO: Chave de API não configurada. Insira sua chave no código JavaScript para que o Gerador de Esboços funcione.</p>`;
-                     return;
-                }
-
+                
+                // Removida a verificação if (apiKey === "") para resolver falha de injeção no Canvas.
+                
                 researchButtons.forEach(btn => btn.disabled = true);
                 const originalText = button.textContent;
                 button.textContent = 'Gerando...';
@@ -439,9 +443,13 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
+                    
+                    if (!response) {
+                        throw new Error(`A comunicação falhou após múltiplas tentativas. (Resposta Indefinida)`);
+                    }
 
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error(`HTTP error! status: ${response.status}. Por favor, verifique se a sua chave de API está correta e ativa.`);
                     }
 
                     const result = await response.json();
