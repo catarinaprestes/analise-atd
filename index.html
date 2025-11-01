@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chosen Palette: Warm Neutrals -->
     <!-- Application Structure Plan: A aplicação foi estruturada em seções temáticas numa única página com uma barra de navegação fixa, em vez de um formato de slides. Essa abordagem permite ao usuário explorar o conteúdo de forma não-linear, seja rolando a página ou saltando diretamente para tópicos de interesse como "O Processo" ou "Aplicações". A estrutura foi desenhada para construir o conhecimento progressivamente: começando com o contexto, comparando com outras metodologias, detalhando o processo interativamente e, por fim, mostrando sua aplicação prática e princípios. Esta arquitetura melhora a usabilidade e a retenção do conhecimento ao agrupar informações relacionadas e permitir a exploração ativa. -->
-    <!-- Visualization & Content Choices: 1. Comparativo de Metodologias (Slide 3): Report Info: Tabela comparando AC, AD e ATD. Goal: Comparar. Viz/Presentation: Abas interativas. Interaction: Clicar em cada aba revela o conteúdo da metodologia correspondente. Justification: Mais focado e interativo que uma tabela estática. Library/Method: HTML/Tailwind + JS. 2. Processo da ATD (Slides 4-5): Report Info: Diagrama de fluxo e descrição das fases. Goal: Explicar o processo. Viz/Presentation: Um diagrama visual do ciclo feito com HTML/Tailwind. Interaction: Cada fase no diagrama é clicável, atualizando uma área de texto ao lado com os detalhes da fase selecionada. Justification: Conecta visualmente o ciclo ao seu significado detalhado, reforçando o aprendizado. Library/Method: HTML/Tailwind + JS. 3. Analisador de Discurso ATD (Gemini API): Report Info: Simulação do processo de análise e construção de sentido. Goal: Engajar e aplicar o conceito. Viz/Presentation: Formulário de texto e exibição de resultados em cartões. Interaction: Envio de texto para análise via Gemini API, retornando interpretação e sugestão de categorias. Justification: Recurso interativo avançado que concretiza os conceitos de "novo emergente" e "categorização emergente". Library/Method: Gemini API (gemini-2.5-flash-preview-05-20) + JS. -->
+    <!-- Visualization & Content Choices: 1. Comparativo de Metodologias (Slide 3): Report Info: Tabela comparando AC, AD e ATD. Goal: Comparar. Viz/Presentation: Abas interativas. Interaction: Clicar em cada aba revela o conteúdo da metodologia correspondente. Justification: Mais focado e interativo que uma tabela estática. Library/Method: HTML/Tailwind + JS. 2. Processo da ATD (Slides 4-5): Report Info: Diagrama de fluxo e descrição das fases. Goal: Explicar o processo. Viz/Presentation: Um diagrama visual do ciclo feito com HTML/Tailwind. Interaction: Cada fase no diagrama é clicável, atualizando uma área de texto ao lado com os detalhes da fase selecionada. Justification: Conecta visualmente o ciclo ao seu significado detalhado, reforçando o aprendizado. Library/Method: HTML/Tailwind + JS. 3. Analisador de Discurso ATD (Gemini API): Report Info: Simulação do processo de análise e construção de sentido. Goal: Engajar e aplicar o conceito. Viz/Presentation: Formulário de texto e exibição de resultados em cartões. Interaction: Envio de texto para análise via Gemini API, retornando interpretação e sugestão de categorias. Justification: Recurso interativo avançado que concretiza os conceitos de "novo emergente" e "categorização emergente". Library/Method: Gemini API (gemini-2.5-flash-preview-05-20) + JS. 4. Gerador de Esboços de Pesquisa ATD (Gemini API): Report Info: Geração de perguntas e metodologias. Goal: Engajar e aplicar o conceito de forma prática. Viz/Presentation: Botões de seleção e exibição de resultados estruturados em cards. Interaction: Clique no tema para chamar o Gemini e receber uma sugestão de pesquisa. Justification: Transforma exemplos abstratos em ideias de pesquisa acionáveis. Library/Method: Gemini API (gemini-2.5-flash-preview-05-20) + JS. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -23,6 +23,10 @@
             transform: scale(1.05);
             box-shadow: 0 4px 14px 0 rgba(8, 145, 178, 0.25);
             border-color: #0891b2;
+        }
+        .research-button:disabled {
+            background-color: #a5f3fc;
+            cursor: wait;
         }
     </style>
 </head>
@@ -137,24 +141,27 @@
         </section>
 
         <section id="aplicacoes" class="py-16">
-            <h2 class="text-3xl font-bold text-center text-cyan-800 mb-2">Por que a ATD é Ideal para Educação e Tecnologia?</h2>
-            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">A flexibilidade e a profundidade da ATD a tornam especialmente poderosa para investigar os fenômenos complexos na interseção entre educação e tecnologia. Esta seção apresenta exemplos concretos de como a metodologia pode ser aplicada para analisar desde interações em ambientes virtuais até discursos em políticas públicas, capturando a fluidez dos discursos mediados pela tecnologia.</p>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
-                    <h3 class="font-semibold text-cyan-900 mb-2">Interações em AVAs</h3>
-                    <p class="text-slate-700">Como os alunos constroem conhecimento colaborativamente em fóruns?</p>
+            <h2 class="text-3xl font-bold text-center text-cyan-800 mb-2">Gerador de Esboços de Pesquisa ATD ✨</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Transforme exemplos de aplicação em ideias de pesquisa acionáveis. Escolha uma área e o sistema gerará uma sugestão de Pergunta de Pesquisa e um Esboço Metodológico, detalhando a aplicação das fases da ATD.</p>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <button data-theme="Interações em AVAs" class="research-button bg-cyan-100 text-cyan-900 border border-cyan-300 p-4 rounded-lg font-semibold hover:bg-cyan-200 transition-colors">
+                        Interações em AVAs
+                    </button>
+                    <button data-theme="Narrativas Docentes sobre IA" class="research-button bg-cyan-100 text-cyan-900 border border-cyan-300 p-4 rounded-lg font-semibold hover:bg-cyan-200 transition-colors">
+                        Narrativas Docentes sobre IA
+                    </button>
+                    <button data-theme="Discursos em Políticas Públicas" class="research-button bg-cyan-100 text-cyan-900 border border-cyan-300 p-4 rounded-lg font-semibold hover:bg-cyan-200 transition-colors">
+                        Discursos em Políticas Públicas
+                    </button>
+                    <button data-theme="Produções Multimodais" class="research-button bg-cyan-100 text-cyan-900 border border-cyan-300 p-4 rounded-lg font-semibold hover:bg-cyan-200 transition-colors">
+                        Produções Multimodais
+                    </button>
                 </div>
-                 <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
-                    <h3 class="font-semibold text-cyan-900 mb-2">Narrativas Docentes</h3>
-                    <p class="text-slate-700">Quais os sentidos que professores atribuem à integração de IA em suas práticas?</p>
-                </div>
-                 <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
-                    <h3 class="font-semibold text-cyan-900 mb-2">Discursos em Políticas Públicas</h3>
-                    <p class="text-slate-700">Quais ideologias estão presentes nos documentos sobre inclusão digital?</p>
-                </div>
-                 <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
-                    <h3 class="font-semibold text-cyan-900 mb-2">Produções Multimodais</h3>
-                    <p class="text-slate-700">Que significados emergem da combinação de texto, imagem e links em um blog educacional?</p>
+                
+                <div id="researchOutput" class="mt-8 bg-white p-6 rounded-xl shadow-lg border border-stone-200 min-h-[150px]">
+                    <p class="text-slate-500 italic text-center" id="researchPlaceholder">Clique em um dos temas acima para gerar um esboço de pesquisa com foco na ATD.</p>
                 </div>
             </div>
         </section>
@@ -308,16 +315,7 @@
             
             updateStepContent('step-1');
 
-            const analyzeButton = document.getElementById('analyzeButton');
-            const discourseInput = document.getElementById('discourseInput');
-            const analysisOutput = document.getElementById('analysisOutput');
-            const buttonText = document.getElementById('buttonText');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-
-            // 🛑 CHAVE DE API NECESSÁRIA PARA FUNCIONAR LOCALMENTE!
-            // Para usar o Analisador ATD fora do ambiente de prévia, substitua o placeholder abaixo
-            // pela sua chave de API do Google AI Studio (obtida em: https://aistudio.google.com/app/apikey)
-            // Lembre-se de manter a chave entre as aspas.
+            // --- LLM Logic Setup ---
             const apiKey = "AIzaSyBqs7rBQG9jii416gAvri6CJneqjaH6F84"; // <--- INSIRA SUA CHAVE DE API AQUI!
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
@@ -335,10 +333,17 @@
                     }
                 }
             }
+            
+            // --- Feature 1: Analisador de Discurso ATD ---
+            const analyzeButton = document.getElementById('analyzeButton');
+            const discourseInput = document.getElementById('discourseInput');
+            const analysisOutput = document.getElementById('analysisOutput');
+            const buttonText = document.getElementById('buttonText');
+            const loadingIndicator = document.getElementById('loadingIndicator');
 
             async function generateATDAnalysis(discourseText) {
                 if (apiKey === "") {
-                     analysisOutput.innerHTML = `<p class="text-red-600 font-semibold">ERRO: Chave de API não configurada. Por favor, obtenha sua chave no Google AI Studio e insira-a na variável 'apiKey' no código JavaScript para que o Analisador funcione localmente.</p>`;
+                     analysisOutput.innerHTML = `<p class="text-red-600 font-semibold">ERRO: Chave de API não configurada. Insira sua chave no código JavaScript para que o Analisador funcione.</p>`;
                      return;
                 }
                 
@@ -371,7 +376,6 @@
                     });
 
                     if (!response.ok) {
-                        // O erro 403 (Forbidden) é capturado aqui.
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
@@ -400,6 +404,76 @@
             analyzeButton.addEventListener('click', () => {
                 generateATDAnalysis(discourseInput.value);
             });
+
+
+            // --- Feature 2: Gerador de Esboços de Pesquisa ---
+            const researchButtons = document.querySelectorAll('.research-button');
+            const researchOutput = document.getElementById('researchOutput');
+            const researchPlaceholder = document.getElementById('researchPlaceholder');
+            
+            async function generateResearchSketch(theme, button) {
+                if (apiKey === "") {
+                    researchOutput.innerHTML = `<p class="text-red-600 font-semibold text-center">ERRO: Chave de API não configurada. Insira sua chave no código JavaScript para que o Gerador de Esboços funcione.</p>`;
+                     return;
+                }
+
+                researchButtons.forEach(btn => btn.disabled = true);
+                const originalText = button.textContent;
+                button.textContent = 'Gerando...';
+                researchOutput.innerHTML = `<div class="text-center text-cyan-700 p-8"><span class="h-5 w-5 border-2 border-cyan-700 border-t-transparent rounded-full animate-spin inline-block mr-2"></span>Criando esboço para "${theme}"...</div>`;
+
+                const systemPrompt = "Você é um orientador de doutorado especializado em Metodologias da Pesquisa em Educação e Tecnologia, com foco em Análise Textual Discursiva (ATD). Dada a área de aplicação, crie uma sugestão de Pergunta de Pesquisa (focada em discurso/sentido) e um Esboço Metodológico (detalhando como as fases da ATD seriam aplicadas). Formate a resposta estritamente em Markdown com títulos em negrito, começando com a Pergunta de Pesquisa, seguida pelo Esboço Metodológico.";
+                
+                const userQuery = `Gere uma sugestão de Pergunta de Pesquisa e um Esboço Metodológico utilizando a ATD para o tema: "${theme}".`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                try {
+                    const response = await exponentialBackoffFetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Erro ao gerar o esboço. Tente novamente.";
+                    
+                    // Format the Markdown output for HTML display
+                    const formattedText = text.replace('**Pergunta de Pesquisa**', '<h3 class="text-xl font-bold text-cyan-700 mb-2 mt-4">Pergunta de Pesquisa</h3>')
+                                              .replace('**Esboço Metodológico (ATD)**', '<h3 class="text-xl font-bold text-cyan-700 mb-2 mt-6 border-t pt-4">Esboço Metodológico (ATD)</h3>')
+                                              .replace(/\*\*/g, '•') // Simple list bullets
+                                              .replace(/•\s/g, '• ');
+
+                    researchOutput.innerHTML = `
+                        <div class="bg-white p-2 rounded-lg">
+                            ${formattedText}
+                        </div>
+                    `;
+
+                } catch (error) {
+                    researchOutput.innerHTML = `<p class="text-red-600 font-semibold text-center">Erro na comunicação com a API: ${error.message}. Verifique a sua conexão ou tente mais tarde.</p>`;
+                } finally {
+                    researchButtons.forEach(btn => btn.disabled = false);
+                    button.textContent = originalText;
+                }
+            }
+
+            researchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const theme = button.dataset.theme;
+                    generateResearchSketch(theme, button);
+                });
+            });
+
         });
     </script>
 </body>
